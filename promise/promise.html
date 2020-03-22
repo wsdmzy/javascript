@@ -32,10 +32,11 @@
     let promise2 = MyPromise.reject("出错了")
     // console.log(promise2)
     let proList = [
-      promise1, "值2", "值3",
+      promise1, "值2", "值3",promise2
     ]
 
-    let Promisereturn = MyPromise.all(proList)
+    // let Promisereturn = MyPromise.all(proList)
+    let Promisereturn = MyPromise.race(proList)
     console.log(Promisereturn)
   </script>
 </body>

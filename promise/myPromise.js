@@ -21,6 +21,7 @@ class MyPromise {
       this._reject(err)
     }
   }
+
   _resolve(val) {
     if (this._status !== PENDING) return
     this._status = FULFILLED //状态改变
@@ -39,6 +40,9 @@ class MyPromise {
       cb(err)
     }
   }
+
+
+
   // 状态改变之后才能调用
   then(onFufilled, onRejected) {
     // 解析出调用then的对象的属性
