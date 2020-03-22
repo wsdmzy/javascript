@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script src="./myPromise.js"></script>
+  <script>
+    // let promise1 = new MyPromise((resolve, reject) => {
+    //   resolve('成功回调')
+    // })
+    // promise2 =  promise1.then("hahah")
+    // promise2.then(res => {
+    //   console.log(res)
+    // })
+    // let promise = new Promise((resolve,reject) => {
+    //   // resolve('成功回调')
+    //   // reject('失败回调')
+    // })
+    // let p = Promise.resolve("语法糖")
+
+    // let p = new Promise((resolve => {
+    //   // resolve("hhh")
+    // }, reject => {  
+    //   reject('sada')
+    // }))
+    
+    let promise1 = MyPromise.resolve("resolve1的值")
+    // console.log(promise1)
+    let promise2 = MyPromise.reject("出错了")
+    // console.log(promise2)
+    let proList = [
+      promise1, "值2", "值3",
+    ]
+
+    let Promisereturn = MyPromise.all(proList)
+    console.log(Promisereturn)
+  </script>
+</body>
+</html>
