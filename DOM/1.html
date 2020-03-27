@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <p id="para">Hello <em>World</em></p>
+  <script>
+    function hide(e) {
+      console.log(this === e.currentTarget);  // 总是 true
+      console.log(this === e.target);  // 有可能不是 true
+      e.target.style.visibility = 'hidden';
+    }
+
+    para.addEventListener('click', hide, false);
+  </script>
+</body>
+</html>
