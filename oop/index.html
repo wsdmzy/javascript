@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+ console.log('script start')  //1
+ setTimeout(function() {
+    console.log('setTimeout')//9
+  }, 0)
+  new Promise((resolve, reject)=>{
+    console.log("promise1") //2
+    resolve()
+  })
+  .then(()=>{
+   console.log("then11")//4
+   new Promise((resolve, reject)=>{
+      console.log("promise2")//5
+      resolve();
+    })
+    .then(() => {
+      console.log("then2-1")//6
+    })
+    .then(() => {
+      console.log("then2-2")//8
+    })
+  })
+  .then(()=>{
+    console.log("then12")//7
+  })
+  console.log('script end')//3
+
+  </script>
+</body>
+</html>
