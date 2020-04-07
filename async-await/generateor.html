@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function foo() {
+      // setTimeout(() => {
+      //   console.log('111')
+      // },2000)
+      // return 'foo'
+      return new Promise((resolve) => {
+         setTimeout(() => {
+            resolve(123)
+          },2000)
+      })
+    }
+    function* test() {
+      console.log('start')
+      let a = yield foo()  //不会等着定时器两秒和才执行往后的代码 .
+      console.log(a,'a')  // a 和 yield后面的值没有任何关系
+      console.log('mid')
+      let b = yield 2;
+      console.log(b, 'b')
+      console.log('end')
+    }
+    // let g = test()
+    // a的值 可以通过next方法传递
+    // next传递的参数就是上一个yield的返回值
+    // console.log(g.next())
+    // 添加新任务 foo
+    // foo()
+    // foo执行完  启动下一步
+    // console.log(g.next('A'))
+    // console.log(g.next('B'))
+    // genrate 内部其他函数而言  可以被终止，调用是通过一步步的next来调用
+
+    function genrateAutoRun(genrate) {
+      let g = genrate()
+      function next(value) {
+        let res = g.next(value)
+        if (res.done) return
+        next(res.value)
+      }
+      next()
+    }
+
+    genrateAutoRun(test)
+  </script>
+</body>
+</html>
