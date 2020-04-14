@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    img {
+      margin-top: 1500px;
+      width: 265px;
+      height: 265px;
+      display: block;
+      border: 1px solid #000;
+    }
+    .wrapper {
+      width: 500px;
+      height: 500px;
+      overflow: scroll;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+
+  
+  <img src="default.png" 
+    target-src="https://img.alicdn.com/tfscom/i3/2459354798/TB2IyE5eUhnpuFjSZFpXXcpuXXa_!!2459354798.jpg_180x180xzq90.jpg_.webp"
+    alt="">
+  <img src="default.png" 
+    target-src="https://gw.alicdn.com/tfs/TB1hJ2KX6ihSKJjy0FlXXadEXXa-254-318.png"
+    alt="">
+  </div>
+  <script>
+    const observer = new IntersectionObserver(function(entry) {
+      //  console.log(entry) 
+       entry.forEach(node => {
+        console.log(node.target,node.isIntersecting)
+        if (node.isIntersecting) {
+          console.log("我出现了")
+          const targetSrc = node.target.getAttribute('target-src')
+          node.target.src = targetSrc
+          // 加载完 图片就显示了  之后就不用观察了
+          observer.unobserve(node.target)
+        }
+       })
+    }, {
+      // threshold: [1, 0.5]    //阈值0-1 
+      // rootMargin: '0px 0px 100px 0px'  //让我们计算某个出在可视区域之内，是按照margin的规则排列之后计算的
+      root: document.querySelector('.wrapper')
+    })
+    const img = document.querySelectorAll('img')
+    img.forEach(item => {
+      observer.observe(item)
+    })
+  </script>
+</body>
+</html>
