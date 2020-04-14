@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <img src="https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3675415932,4054970339&fm=26&gp=0.jpg" alt="">
+  <script>
+    // 之前的api  
+    // .getEntries()可以拿到页面加载的性能指标的
+    // 只能拿到 js执行时候 当前这个时间节点以前发生的性能指标(网页加载，tcp握手。。。)
+    // performance
+    //   .getEntries()
+    //   .forEach(e => {
+    //     console.table(e)
+    //   })
+
+    const observer = new PerformanceObserver((list) => {
+      list.getEntries().forEach(item => {
+        // console.log(item)
+        // console.log('TCP:' ,item.connectEnd - item.connectStart)
+        // console.log('DOM:' ,item.domInteractive - item.responseEnd)
+        // console.log('页面完全加载:' ,item.loadEventStart - item.fetchStart)
+        console.log(item)
+      })
+    })
+    observer.observe({
+      // entryTypes: ['resource'],  //资源
+      // entryTypes: ['paint']  //页面绘制  FP 第一个像素落地  FCP 内容绘制  量化你页面性能指标  FMP 有意义的内容绘制  
+      // entryTypes: ['navigation']  
+      // entryTypes: ['longtask']  
+      entryTypes: ['measure', 'longtask']  
+    })
+    performance.mark('cal-start')
+    for (var i = 0; i < 100000; i++) {
+     
+    }
+    performance.mark('cal-end')
+    performance.measure('for-spend','cal-start', 'cal-end')
+    //懒加载 1. 自己不同监听scroll 不停计算 2. IsOb 浏览器主动通知
+
+    // ？？
+    // 往后的性能指标拿不到了
+    const img = document.createElement('img')
+    img.src = 'https://dss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1208538952,1443328523&fm=26&gp=0.jpg'
+    document.body.appendChild(img)
+
+    // 整个页面加载完
+    window.onload = function() {
+
+    }
+
+
+
+  </script>
+</body>
+</html>
