@@ -1,0 +1,79 @@
+<script src="https://cdn.bootcss.com/lodash.js/4.17.15/lodash.min.js"></script>
+<script>
+  // 纯函数
+  // FP: 数学家提出的   对过程的抽象
+  // 没有任何副作用 同样的输入一定会有同样的输出
+  const add = (a,b) => a+b
+
+  let c = 100
+  const add1 = (a,b) => a+b+c
+  // 10 ,20 => 130
+  c = 200
+  // 10 ,20 => 230   不纯
+
+
+  const add2 = (a,b) => {
+    // 副作用 会对外部环境造成影响  
+    c = 300
+    // 副作用  额外的输出
+    console.log(c)
+    return a+b
+  }
+
+  // 业务代码  不是全部用  FP 可能用到几个思想
+  // node 少  
+  // fs.readFile('./index.html', 'utf8', (err,res) => {
+  //   console.log(res)
+  // })
+  // Math.random() Date.now()
+
+  // 优点
+  // 易于测试
+  // 易于缓存      递归 dp
+  function min(a, b) {
+    console.log('re cal');
+    return a - b;
+  }
+  console.log(min(5, 4))
+  console.log(min(5, 4))
+  console.log(min(5, 4))
+  const mMin = _.memoize(min);
+  // mMin 有缓存功能
+  console.log(mMin(10, 8))
+  console.log(mMin(10, 8))
+  console.log(mMin(10, 8))
+
+  // 缓存在map
+  let map = {}
+  function minMemoize(a, b) {
+    let key = `${a}${b}`
+    if (map[key] !== undefined) return map[key]
+    console.log('re cal');
+    let res = a - b
+    // 缓存  依据什么东西呢？
+    map[key] = res
+    return res;
+  }
+
+  function memoize(func) {
+    let map = {}
+    // 带有缓存
+    return function(...args) {
+      // func调用的时候
+      let key = JSON.stringify(args)
+      if (map[key] !== undefined) return map[key]
+      // 真正的计算
+      let res = func(...args)
+      // 缓存一下 
+      map[key] = res
+      return res
+    }
+  }
+
+  const mMin1 = memoize(min);
+  // mMin 有缓存功能
+  console.log(mMin1(12, 8))
+  console.log(mMin1(12, 8))
+  console.log(mMin1(12, 8))
+
+</script>
