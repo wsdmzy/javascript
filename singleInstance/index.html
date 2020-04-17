@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .modal {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background-color: rgba(0,0,0,.1);
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <script>
+
+
+    let instance = null
+    // 第二种方法  开放api
+    // function getSingleInstance() {
+    //   if (instance) return instance
+    //   instance = new Modal()
+    //   return instance
+    // }
+    function Modal() {
+      
+      this.ele = document.createElement('div')
+      this.ele.classList.add('modal')
+      
+      // 第一种方法实现单例模式  第4点 修改new返回的对象
+      if (!instance) {
+        instance = this
+      }
+      return instance
+    }
+
+    Modal.prototype.open = function() {
+        document.body.appendChild(this.ele)
+        this.ele.style.display = 'block'
+      }
+      Modal.prototype.close = function() {
+        document.body.removeChild(this.ele)
+      }
+      Modal.prototype.content = function(content) {
+        this.ele.innerHTML = content
+      }
+    let m = new Modal()
+    let m1 = new Modal()
+    console.log(m === m1)  //true
+    m.content("内容")
+    m.open()
+    setTimeout(() => {
+      m.close()
+    },3000)
+
+    // new多少次 始终只存在一个实例
+
+  </script>
+</body>
+</html>
