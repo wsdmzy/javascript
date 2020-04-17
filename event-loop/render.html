@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    document.body.style.backgroundColor = 'red'
+    // document.body.style.backgroundColor = 'blue'
+    Promise.resolve().then(() => {
+      document.body.style.backgroundColor = 'black'
+    })
+    setTimeout(() => {
+      document.body.style.backgroundColor = 'blue'
+    })
+    // 先 red  再 blue？？？  并没用发生渲染
+    // 不同的任务放去 不同的队列
+    // 属于同一个task  task queue 队列去
+    // 1. task 执行  后一个backgroundColor覆盖前面的backgroundColor
+    // 2. microtask
+    // 3. 渲染
+
+    // task queue 
+
+    
+  </script>
+</body>
+</html>
