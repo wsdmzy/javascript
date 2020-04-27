@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <img src="./ziogie.top.png" alt="">
+  <script>
+    // in  判断某个对象是否有该属性
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js', { scope: './' })
+        .then((work) => {
+          console.log('sw 完成');
+        })
+        .catch(err => {
+          console.log(err)
+        }) 
+    }
+  </script>
+</body>
+</html>
