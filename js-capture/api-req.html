@@ -1,0 +1,48 @@
+<!-- api请求有没有出错 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // console.log('--++')
+    // js原生XMLhttprequest  success  error timeout
+    const _XMLHttprequest = XMLHttpRequest
+    window.XMLHttpRequest = function() {
+      const xhr = new _XMLHttprequest()
+      // on 只能绑定一个事件，可能会冲突，addEventListenner可以绑定多个
+      xhr.addEventListener('error', () => {
+        console.log("xhr error")
+        // 整个服务  宕机
+      })
+      xhr.addEventListener('timeout', () => {
+        console.log("xhr timeout")
+      })
+      // 判断状态码
+      xhr.addEventListener('readystatechange', () => {
+        if (xhr.readyState === 4) {
+          console.log(xhr.status)
+        }
+      })
+      // 是能够生成xhr
+      return xhr
+    }
+  </script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js">
+  </script>
+  <script>
+      // console.log('++')
+    axios.get('http://neteasecloudmusicapi.zhaoboy.com/sea')
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    
+  </script>
+</body>
+</html>

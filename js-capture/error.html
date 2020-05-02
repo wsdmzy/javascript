@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let obj = null
+    new Promise((resolove, reject) => {
+      reject("ss")
+    })
+    // 1. 意料之中
+    try {
+      // try不能捕获的异步的
+      setTimeout(() => {
+        obj.name = 123
+      })
+    } catch (error) {
+      // 发送到你的服务器
+    }
+
+    // 2. 意料之外 全局捕获
+    // 捕获 冒泡
+    window.addEventListener('error', (err) => {
+      console.log(err)
+      // 发送到后端
+    }, false)
+
+    // 3. promise
+    window.addEventListener('unhandledrejection', err => {
+      console.log(err)
+    })
+  </script>
+</body>
+</html>
