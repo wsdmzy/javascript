@@ -1,0 +1,24 @@
+<script src="./dist/class.js"></script>
+<script>
+  let arr = [1,2,3,4]
+
+ 
+
+  // 最小的一个原子
+  
+  // 1. 保留一份原始的方法
+  const originPush = Array.prototype.push
+  // 2. 重写(破坏)
+  Array.prototype.push = function() {
+    // 切面   注入想注入的代码
+    console.log("push")
+    // 原来的push恢复
+    // originPush()
+    originPush.apply(this,arguments)
+
+  }
+
+
+  arr.push(1)
+
+</script>
