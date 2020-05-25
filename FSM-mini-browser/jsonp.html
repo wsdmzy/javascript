@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function onRes(res) {
+
+    }
+    // 1. 前端定义方法
+    // 2. script 发送请求给后端 JSONP  callback=方法名  保证方法名唯一
+    // 3. 后端返回 onRes({code: data: []})
+    // 使用script 浏览器会把字符串当作JS执行
+    jsonp('url', {
+
+    })
+    .then(res => {
+
+    })
+    .catch(err => {
+
+    })
+
+    function jsonp(url, options) {
+      return new Promise((resolve, reject ) => {
+        let scriptNode = null, methodName = null
+        methodName = `jsonp${Date.now()}`
+        window[methodName] = function(res) {
+          resolve(res)
+          // 清理工作    SPA
+          // 事件绑定  setInterval
+          delete window[methodName]
+          clearTimeout(timer)
+          document.body.removeChild(scriptNode)
+        }
+        scriptNode = document.createElement('script')
+        scriptNode.src = `${url}?callback=${methodName}`
+        document.body.appendChild(scriptNode)
+        let timer = setTimeout(() => {
+          reject('net Err timeout')
+        }, 3000)  //超时
+        scriptNode.onerror = function(err) {
+          reject(err)
+          delete window[methodName]
+          clearTimeout(timer)
+          document.body.removeChild(scriptNode)
+        }
+      })
+    }
+
+  </script>
+</body>
+</html>
